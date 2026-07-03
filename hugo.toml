@@ -1,0 +1,31 @@
+baseURL = "https://go-ruby-oauth2.github.io/"
+title = "go-ruby-oauth2"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[params.phases]]
+  name = "Authorization URLs"
+  status = "ready"
+  blurb = "`AuthCode().AuthorizeURL(...)` merges the `client_id` and `response_type=code` defaults and query-encodes every param (redirect_uri, scope, state, PKCE, provider extras) with **keys sorted** and the RFC 3986 unreserved set left literal (space → `%20`) — byte-faithful to the gem."
+[[params.phases]]
+  name = "Every grant"
+  status = "ready"
+  blurb = "Authorization-code, client-credentials, resource-owner password, JWT-bearer assertion and refresh-token — each builds the token **request spec** (form body / query params) the gem hands to Faraday."
+[[params.phases]]
+  name = "Client authentication"
+  status = "ready"
+  blurb = "`basic_auth` (default; `Authorization: Basic base64(id:secret)`), `request_body` (client_id + client_secret in the body) and `tls_client_auth` (client_id only, RFC 8705), over `POST` (form body) or `GET` (query params)."
+[[params.phases]]
+  name = "Response parsing"
+  status = "ready"
+  blurb = "Content-type dispatch (`application/json`, any `+json`, `text/json`, `x-www-form-urlencoded`) into an `AccessToken` — `token`, `refresh_token`, `expires_at` / `expires?` / `expired?`, `token_type`, `scope` — with residual provider params preserved in response order."
+[[params.phases]]
+  name = "AccessToken & PKCE"
+  status = "ready"
+  blurb = "Expiry derivation (`expires_in` → `expires_at`), the refresh-request builder (preserving the old refresh token), `to_hash`, and resource-request injection in header / query / body mode (`Bearer` / `MAC` / custom); `CodeChallenge` for PKCE `S256` and `plain` (RFC 7636)."
+[[params.phases]]
+  name = "Differential oracle & coverage"
+  status = "ready"
+  blurb = "Authorize URLs, token-request specs (each grant × auth-scheme × method), PKCE challenges and parsed token/error responses are diffed **byte-for-byte** against the reference `oauth2` gem; the ruby-free tests alone hold 100% coverage, `gofmt` + `go vet` clean, green across 6 arches including the big-endian lane."
