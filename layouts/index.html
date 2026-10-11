@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{{/* Dark Reader repaints pages that already draw their own dark theme, as this one does: ask it to stand aside. */}}
+<meta name="darkreader-lock">
 <title>{{ .Site.Title }} — a pure-Go OAuth2 client core, gem-faithful, no cgo</title>
 <meta name="description" content="go-ruby-oauth2 — A pure-Go (no cgo) reimplementation of the deterministic protocol core of Ruby's oauth2 gem: authorization URLs, every grant's token-request spec, client-auth schemes, PKCE and response parsing.">
 <style>
